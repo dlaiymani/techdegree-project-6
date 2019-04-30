@@ -16,7 +16,12 @@
 		AA23028A2278337800FEF7EE /* Starship.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2302892278337800FEF7EE /* Starship.swift */; };
 		AA23028C22783DF800FEF7EE /* TransportMachine.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA23028B22783DF800FEF7EE /* TransportMachine.swift */; };
 		AA23028E22786E6100FEF7EE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AA23028D22786E6100FEF7EE /* Assets.xcassets */; };
-		AA23029122787FAC00FEF7EE /* InformationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA23029022787FAC00FEF7EE /* InformationController.swift */; };
+		AA23029722788E7500FEF7EE /* JSONDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA23029622788E7500FEF7EE /* JSONDownloader.swift */; };
+		AA23029922788EA800FEF7EE /* AwakensError.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA23029822788EA800FEF7EE /* AwakensError.swift */; };
+		AA23029B22788F1000FEF7EE /* AwakensAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA23029A22788F1000FEF7EE /* AwakensAPIClient.swift */; };
+		AA23029E22788FB800FEF7EE /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA23029D22788FB800FEF7EE /* Endpoint.swift */; };
+		AA2302A0227896E200FEF7EE /* PeopleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA23029F227896E200FEF7EE /* PeopleController.swift */; };
+		AA2302A3227898D500FEF7EE /* SearchPeopleDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2302A2227898D500FEF7EE /* SearchPeopleDataSource.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,7 +36,12 @@
 		AA2302892278337800FEF7EE /* Starship.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Starship.swift; sourceTree = "<group>"; };
 		AA23028B22783DF800FEF7EE /* TransportMachine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransportMachine.swift; sourceTree = "<group>"; };
 		AA23028D22786E6100FEF7EE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		AA23029022787FAC00FEF7EE /* InformationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationController.swift; sourceTree = "<group>"; };
+		AA23029622788E7500FEF7EE /* JSONDownloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONDownloader.swift; sourceTree = "<group>"; };
+		AA23029822788EA800FEF7EE /* AwakensError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AwakensError.swift; sourceTree = "<group>"; };
+		AA23029A22788F1000FEF7EE /* AwakensAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AwakensAPIClient.swift; sourceTree = "<group>"; };
+		AA23029D22788FB800FEF7EE /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
+		AA23029F227896E200FEF7EE /* PeopleController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleController.swift; sourceTree = "<group>"; };
+		AA2302A2227898D500FEF7EE /* SearchPeopleDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPeopleDataSource.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +74,8 @@
 		AA230271227831A000FEF7EE /* AwakensApp */ = {
 			isa = PBXGroup;
 			children = (
+				AA2302A12278989F00FEF7EE /* Data Sources */,
+				AA23029522788E4C00FEF7EE /* Networking */,
 				AA23028F22787F5B00FEF7EE /* Controllers */,
 				AA2302842278333800FEF7EE /* Models */,
 				AA230272227831A000FEF7EE /* AppDelegate.swift */,
@@ -78,6 +90,7 @@
 		AA2302842278333800FEF7EE /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				AA23029C22788F8600FEF7EE /* Endpoint */,
 				AA2302852278334B00FEF7EE /* People.swift */,
 				AA2302872278335800FEF7EE /* Vehicle.swift */,
 				AA2302892278337800FEF7EE /* Starship.swift */,
@@ -90,9 +103,35 @@
 			isa = PBXGroup;
 			children = (
 				AA230274227831A000FEF7EE /* ViewController.swift */,
-				AA23029022787FAC00FEF7EE /* InformationController.swift */,
+				AA23029F227896E200FEF7EE /* PeopleController.swift */,
 			);
 			path = Controllers;
+			sourceTree = "<group>";
+		};
+		AA23029522788E4C00FEF7EE /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				AA23029622788E7500FEF7EE /* JSONDownloader.swift */,
+				AA23029822788EA800FEF7EE /* AwakensError.swift */,
+				AA23029A22788F1000FEF7EE /* AwakensAPIClient.swift */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
+		AA23029C22788F8600FEF7EE /* Endpoint */ = {
+			isa = PBXGroup;
+			children = (
+				AA23029D22788FB800FEF7EE /* Endpoint.swift */,
+			);
+			path = Endpoint;
+			sourceTree = "<group>";
+		};
+		AA2302A12278989F00FEF7EE /* Data Sources */ = {
+			isa = PBXGroup;
+			children = (
+				AA2302A2227898D500FEF7EE /* SearchPeopleDataSource.swift */,
+			);
+			path = "Data Sources";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -166,12 +205,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AA23029922788EA800FEF7EE /* AwakensError.swift in Sources */,
+				AA2302A0227896E200FEF7EE /* PeopleController.swift in Sources */,
+				AA23029722788E7500FEF7EE /* JSONDownloader.swift in Sources */,
 				AA2302882278335800FEF7EE /* Vehicle.swift in Sources */,
 				AA23028A2278337800FEF7EE /* Starship.swift in Sources */,
+				AA2302A3227898D500FEF7EE /* SearchPeopleDataSource.swift in Sources */,
+				AA23029B22788F1000FEF7EE /* AwakensAPIClient.swift in Sources */,
 				AA230275227831A000FEF7EE /* ViewController.swift in Sources */,
 				AA2302862278334B00FEF7EE /* People.swift in Sources */,
 				AA230273227831A000FEF7EE /* AppDelegate.swift in Sources */,
-				AA23029122787FAC00FEF7EE /* InformationController.swift in Sources */,
+				AA23029E22788FB800FEF7EE /* Endpoint.swift in Sources */,
 				AA23028C22783DF800FEF7EE /* TransportMachine.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -13,7 +13,7 @@
         <!--View Controller-->
         <scene sceneID="SIa-VE-800">
             <objects>
-                <viewController id="czf-4f-fD9" sceneMemberID="viewController">
+                <viewController id="czf-4f-fD9" customClass="ViewController" customModule="AwakensApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5qp-LJ-dAF">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -427,7 +427,7 @@
         <!--Title-->
         <scene sceneID="g7l-O2-5zs">
             <objects>
-                <tableViewController id="7oF-E6-dDr" sceneMemberID="viewController">
+                <tableViewController id="7oF-E6-dDr" customClass="PeopleController" customModule="AwakensApp" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="d6L-vN-LXl">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -685,6 +685,9 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Title" id="kWy-re-6Wo"/>
+                    <connections>
+                        <outlet property="peopleListPickerView" destination="eGa-a8-E7U" id="phe-nD-vb0"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="b6c-ky-FGf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
