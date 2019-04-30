@@ -14,8 +14,6 @@ class AwakensAPIClient {
     func searchForCharacters(completion: @escaping ([People], AwakensError?) -> Void) {
         
         let endpoint = Awakens.search(entity: .people)
-      //  let endpoint = Itunes.search(term: term, media: .music(entity: .musicArtist, attribute: .artistTerm))
-        print(endpoint.request)
         performRequest(with: endpoint) { (results, error) in
             guard let results = results else {
                 completion([], error)
@@ -27,6 +25,26 @@ class AwakensAPIClient {
         }
     }
     
+    
+    func lookupCharcater(withId id: Int, completion: @escaping (People?, AwakensError?) -> Void) {
+        let endpoint = Awakens.lookup(entity: .people, id: id)
+        print(endpoint.request)
+        
+        performSimpleRequest(with: endpoint) { (results, error) in
+            guard let results = results else {
+                completion(nil, error)
+                return
+            }
+            
+            guard let people = People(json: results) else {
+                completion(nil, .jsonParsingFailure(message: "Could not parse people information"))
+                return
+            }
+            
+            completion(people, nil)
+            
+        }
+    }
     
     typealias Results = [[String: Any]]
     
@@ -59,20 +77,9 @@ class AwakensAPIClient {
             DispatchQueue.main.async {
                 guard let json = json else {
                     completion(nil, error)
-                    print("yo")
                     return
                 }
-                
-                guard let results = json as? [String: Any] else {
-                    completion(nil, .jsonParsingFailure(message: "Pb parsing json"))
-                    print("yo")
-
-                    return
-                }
-                
-                print("yo")
-
-                completion(results, nil)
+                completion(json, nil)
             }
         }
         
@@ -80,30 +87,7 @@ class AwakensAPIClient {
         
     }
    
-    func lookupCharcater(withId id: Int, completion: @escaping (People?, AwakensError?) -> Void) {
-        let endpoint = Awakens.lookup(entity: .people, id: id)
-        print(endpoint.request)
-        
-        performSimpleRequest(with: endpoint) { (results, error) in
-            guard let results = results else {
-                completion(nil, error)
-                return
-            }
-            
-           /* guard let peopleInfo = results.first else {
-                completion(nil, .jsonParsingFailure(message: "Results does not contain people info"))
-                return
-            }*/
-            
-            guard let people = People(json: results) else {
-                completion(nil, .jsonParsingFailure(message: "Could not parse people information"))
-                return
-            }
-            
-            completion(people, nil)
-            
-        }
-    }
+    
     
     /*
     

@@ -500,19 +500,9 @@
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="5xV-a9-pvQ">
-                                                    <rect key="frame" x="269" y="8" width="117" height="29"/>
-                                                    <segments>
-                                                        <segment title="English"/>
-                                                        <segment title="Metric"/>
-                                                    </segments>
-                                                    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                </segmentedControl>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="hol-Qu-hhh" firstAttribute="leading" secondItem="F16-b3-wRc" secondAttribute="leading" constant="60" id="BHI-ql-oBC"/>
-                                                <constraint firstItem="5xV-a9-pvQ" firstAttribute="centerY" secondItem="1ee-OO-RCS" secondAttribute="centerY" id="CcP-9N-RZe"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="5xV-a9-pvQ" secondAttribute="trailing" constant="8" id="GhP-q4-hfl"/>
                                                 <constraint firstItem="hol-Qu-hhh" firstAttribute="centerY" secondItem="1ee-OO-RCS" secondAttribute="centerY" id="PyW-x4-4eY"/>
                                                 <constraint firstItem="F16-b3-wRc" firstAttribute="centerY" secondItem="1ee-OO-RCS" secondAttribute="centerY" id="Q7x-VR-i7R"/>
                                                 <constraint firstItem="F16-b3-wRc" firstAttribute="leading" secondItem="1ee-OO-RCS" secondAttribute="leadingMargin" constant="8" id="bFf-XT-0w4"/>
@@ -539,8 +529,21 @@
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="5xV-a9-pvQ">
+                                                    <rect key="frame" x="269" y="8" width="117" height="29"/>
+                                                    <segments>
+                                                        <segment title="English"/>
+                                                        <segment title="Metric"/>
+                                                    </segments>
+                                                    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <connections>
+                                                        <action selector="unitChanged:" destination="7oF-E6-dDr" eventType="valueChanged" id="tzb-9d-wWC"/>
+                                                    </connections>
+                                                </segmentedControl>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="5xV-a9-pvQ" firstAttribute="centerY" secondItem="H1M-nZ-b5h" secondAttribute="centerY" id="3Td-Or-dx2"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="5xV-a9-pvQ" secondAttribute="trailing" constant="8" id="6Gm-kE-oqC"/>
                                                 <constraint firstItem="tRM-dS-lfE" firstAttribute="centerY" secondItem="H1M-nZ-b5h" secondAttribute="centerY" id="IUH-UN-BoP"/>
                                                 <constraint firstItem="KFv-Sn-7Qv" firstAttribute="centerY" secondItem="H1M-nZ-b5h" secondAttribute="centerY" id="Wjk-pZ-xGW"/>
                                                 <constraint firstItem="tRM-dS-lfE" firstAttribute="leading" secondItem="H1M-nZ-b5h" secondAttribute="leadingMargin" constant="8" id="f7q-Dm-crs"/>
@@ -686,7 +689,14 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Title" id="kWy-re-6Wo"/>
                     <connections>
+                        <outlet property="bornYearLabel" destination="tJP-eb-gNc" id="J2R-fa-46h"/>
+                        <outlet property="eyeColorLabel" destination="dlD-tI-KCH" id="7Eh-vZ-fUO"/>
+                        <outlet property="hairColorLabel" destination="2xV-4J-oaF" id="D2M-5M-4n2"/>
+                        <outlet property="heightLabel" destination="KFv-Sn-7Qv" id="Vks-wk-Up1"/>
+                        <outlet property="homeLabel" destination="hol-Qu-hhh" id="q98-pZ-X2i"/>
                         <outlet property="peopleListPickerView" destination="eGa-a8-E7U" id="phe-nD-vb0"/>
+                        <outlet property="titleLabel" destination="oGf-sN-3GI" id="C1i-kL-dir"/>
+                        <outlet property="unitConverter" destination="5xV-a9-pvQ" id="xhI-JK-yYZ"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="b6c-ky-FGf" userLabel="First Responder" sceneMemberID="firstResponder"/>
