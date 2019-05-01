@@ -19,8 +19,11 @@ class PeopleController: UITableViewController, UIPickerViewDataSource, UIPickerV
     @IBOutlet weak var eyeColorLabel: UILabel!
     @IBOutlet weak var hairColorLabel: UILabel!
     
+    @IBOutlet weak var smallestLabel: UILabel!
+    @IBOutlet weak var largestLabel: UILabel!
     @IBOutlet weak var unitConverter: UISegmentedControl!
     
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     let client = AwakensAPIClient()
     var data = [People]()
@@ -34,9 +37,20 @@ class PeopleController: UITableViewController, UIPickerViewDataSource, UIPickerV
         peopleListPickerView.delegate = self
         peopleListPickerView.dataSource = self
         unitConverter.selectedSegmentIndex = 1
-        client.searchForCharacters { [weak self] peoples, error in
-            self?.data = peoples
-            self?.peopleListPickerView.reloadAllComponents()
+        activityIndicator.startAnimating()
+        client.searchForCharacters { [weak self] peoples, nb, error in
+            self?.data.append(contentsOf: peoples)
+            if (self?.data.count)! >= nb! { // all data are downloaded
+                self?.data.sort(by: { $0.name < $1.name })
+                self?.peopleListPickerView.reloadAllComponents()
+                self?.activityIndicator.stopAnimating()
+                self?.activityIndicator.isHidden = true
+                let smallest = self?.data.min(by: { $0.height < $1.height })
+                let largest = self?.data.max(by: { $0.height < $1.height })
+                self?.smallestLabel.text = smallest?.name
+                self?.largestLabel.text = largest?.name
+                self?.pickerView(self!.peopleListPickerView, didSelectRow: 0, inComponent: 0)
+            }
         }
     
     }
@@ -55,14 +69,19 @@ class PeopleController: UITableViewController, UIPickerViewDataSource, UIPickerV
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        client.lookupCharcater(withId: row) { (people, error) in
-            self.currentPeople = self.data[row]
-            if let people = self.currentPeople {
-                self.titleLabel.text = people.name
-                self.bornYearLabel.text = people.birthYear
-                self.eyeColorLabel.text = people.eyeColor
+        self.currentPeople = self.data[row]
+        if let people = self.currentPeople {
+            self.titleLabel.text = people.name
+            self.bornYearLabel.text = people.birthYear
+            self.eyeColorLabel.text = people.eyeColor
+            if people.hairColor == "n/a" {
+                self.hairColorLabel.text = "Non available"
+            } else {
                 self.hairColorLabel.text = people.hairColor
-                self.displayHeight(height: people.height)
+            }
+            self.displayHeight(height: people.height)
+            client.lookupHome(withId: people.homeUrl) { (home, error) in
+                self.homeLabel.text = home
             }
         }
     }
@@ -84,6 +103,4 @@ class PeopleController: UITableViewController, UIPickerViewDataSource, UIPickerV
             self.heightLabel.text = "\(formattedHeight)ft"
         }
     }
-    
-
 }

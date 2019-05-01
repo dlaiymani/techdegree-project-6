@@ -51,6 +51,18 @@ extension People {
     }
 }
 
+extension People: Comparable {
+    static func == (lhs: People, rhs: People) -> Bool {
+        return lhs.name == rhs.name
+    }
+    
+    static func <(lhs: People, rhs: People) -> Bool {
+        return lhs.name < rhs.name
+    }
+}
+
+
+
 //"name": "Luke Skywalker",
 //"height": "172",
 //"mass": "77",

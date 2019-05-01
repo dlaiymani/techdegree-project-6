@@ -10,40 +10,62 @@ import Foundation
 
 class AwakensAPIClient {
     var downloader = JSONDownloader()
-    
-    func searchForCharacters(completion: @escaping ([People], AwakensError?) -> Void) {
+
+
+    func searchForCharacters(completion: @escaping ([People], Int?, AwakensError?) -> Void) {
         
-        let endpoint = Awakens.search(entity: .people)
-        performRequest(with: endpoint) { (results, error) in
-            guard let results = results else {
-                completion([], error)
+        let endpoint = Awakens.search(entity: .people, page: 1)        
+        getNumberOfElements(with: endpoint) { (nbOfElements, error) in
+            guard let nbOfElements = nbOfElements else {
+                completion([], nil, error)
                 return
             }
             
-            let peoples = results.flatMap({ People(json: $0) })
-            completion(peoples, nil)
+            let nbPages = Int(ceil(Double(nbOfElements) / 10.0))
+            for i in 1...nbPages {
+                let endpoint = Awakens.search(entity: .people, page: i)
+                
+                self.performRequest(with: endpoint) { (results, error) in
+                    guard let results = results else {
+                        completion([], nil, error)
+                        return
+                    }
+                    
+                    let peoples = results.flatMap({ People(json: $0) })
+                    completion(peoples, nbOfElements, nil)
+                }
+                
+            }
+            //print(peoplesTotal)
+            
+            // completion(peoplesTotal, nil)
+            
         }
+        
     }
+
+   
     
-    
-    func lookupCharcater(withId id: Int, completion: @escaping (People?, AwakensError?) -> Void) {
-        let endpoint = Awakens.lookup(entity: .people, id: id)
-        print(endpoint.request)
+    private func getNumberOfElements(with endpoint: Endpoint, completion: @escaping (Int?, AwakensError?) -> Void) {
         
-        performSimpleRequest(with: endpoint) { (results, error) in
-            guard let results = results else {
-                completion(nil, error)
-                return
+        let task = downloader.jsonTask(with: endpoint.request) { (json, error) in
+            DispatchQueue.main.async {
+                guard let json = json else {
+                    completion(nil, error)
+                    return
+                }
+                
+                guard let nbOfElements = json["count"] as? Int else {
+                    completion(nil, .jsonParsingFailure(message: "JSON does not contains count"))
+                    return
+                }
+                
+                completion(nbOfElements, nil)
             }
-            
-            guard let people = People(json: results) else {
-                completion(nil, .jsonParsingFailure(message: "Could not parse people information"))
-                return
-            }
-            
-            completion(people, nil)
-            
         }
+        
+        task.resume()
+        
     }
     
     typealias Results = [[String: Any]]
@@ -71,15 +93,41 @@ class AwakensAPIClient {
     }
     
     
-    private func performSimpleRequest(with endpoint: Endpoint, completion: @escaping ([String: Any]?, AwakensError?) -> Void) {
+    
+    func lookupHome(withId homeUrl: String, completion: @escaping (String?, AwakensError?) -> Void) {
+        performHomeRequest(with: homeUrl) { (result, error) in
+            guard let result = result else {
+                completion(nil, error)
+                return
+            }
+            
+            completion(result, nil)
+            
+        }
+    }
+    
+    private func performHomeRequest(with endpoint: String, completion: @escaping (String?, AwakensError?) -> Void) {
         
-        let task = downloader.jsonTask(with: endpoint.request) { (json, error) in
+        guard let homeURL = URL(string: endpoint) else {
+            completion(nil, .invalidData)
+            return
+        }
+        
+       let request = URLRequest(url: homeURL)
+        
+        let task = downloader.jsonTask(with: request) { (json, error) in
             DispatchQueue.main.async {
                 guard let json = json else {
                     completion(nil, error)
                     return
                 }
-                completion(json, nil)
+                
+                guard let results = json["name"] as? String else {
+                    completion(nil, .jsonParsingFailure(message: "JSON does not contains name"))
+                    return
+                }
+                
+                completion(results, nil)
             }
         }
         
@@ -88,6 +136,9 @@ class AwakensAPIClient {
     }
    
     
+    
+        
+        
     
     /*
     

@@ -11,14 +11,14 @@ import Foundation
 protocol Endpoint {
     var base: String { get }
     var path: String { get }
-   // var queryItems: [URLQueryItem] { get }
+    var queryItems: [URLQueryItem] { get }
 }
 
 extension Endpoint {
     var urlComponents: URLComponents {
         var components = URLComponents(string: base)!
         components.path = path
-       // components.queryItems = queryItems
+        components.queryItems = queryItems
         
         return components
     }
@@ -37,7 +37,7 @@ enum Entity: String {
 }
 
 enum Awakens {
-    case search(entity: Entity)
+    case search(entity: Entity, page: Int)
     case lookup(entity: Entity, id: Int)
 }
 
@@ -50,40 +50,31 @@ extension Awakens: Endpoint {
     var path: String {
         
         switch self {
-        case .search(let entity):
-            return "/api/\(entity.rawValue)"
+        case .search(let entity, let page):
+            return "/api/\(entity.rawValue)/".addingpercentEncoding()
         case .lookup(let entity, let id):
             return "/api/\(entity.rawValue)/\(id)"
         }
     }
     
-   /* var queryItems: [URLQueryItem] {
+   var queryItems: [URLQueryItem] {
         switch self {
-        case .search(let term, let media):
+        case .search(let entity, let page):
             var result = [URLQueryItem]()
             
-            let searchItem = URLQueryItem(name: "term", value: term)
+            let searchItem = URLQueryItem(name: "page", value: String(page))
             result.append(searchItem)
-            
-            if let media = media {
-                let mediaItem = URLQueryItem(name: "media", value: media.description)
-                result.append(mediaItem)
-                
-                if let entityQueryItem = media.entityQueryItem {
-                    result.append(entityQueryItem)
-                }
-                
-                if let attributeQueryItem = media.attributeQueryItem {
-                    result.append(attributeQueryItem)
-                }
-            }
             return result
         case .lookup(let id, let entity):
-            return [
-                URLQueryItem(name: "id", value: id.description),
-                URLQueryItem(name: "entity", value: entity?.entityName)
-            ]
+            return []
             
         }
-    }*/
+    }
+}
+
+
+extension String {
+    func addingpercentEncoding() -> String {
+        return self.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlPathAllowed)!
+    }
 }

@@ -334,7 +334,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bNh-Ed-6A3">
-                                                    <rect key="frame" x="47" y="0.0" width="359" height="149"/>
+                                                    <rect key="frame" x="47" y="0.0" width="320" height="149.5"/>
                                                 </pickerView>
                                             </subviews>
                                             <constraints>
@@ -624,8 +624,13 @@
                                                 <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eGa-a8-E7U">
                                                     <rect key="frame" x="47" y="0.0" width="320" height="149.5"/>
                                                 </pickerView>
+                                                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="dbt-CN-WQe">
+                                                    <rect key="frame" x="197" y="65" width="20" height="20"/>
+                                                </activityIndicatorView>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="dbt-CN-WQe" firstAttribute="centerX" secondItem="Hog-kd-1E9" secondAttribute="centerX" id="3jt-Xf-DOC"/>
+                                                <constraint firstItem="dbt-CN-WQe" firstAttribute="centerY" secondItem="Hog-kd-1E9" secondAttribute="centerY" id="Ck2-OU-Cdn"/>
                                                 <constraint firstAttribute="bottom" secondItem="eGa-a8-E7U" secondAttribute="bottom" id="Dgr-hA-F0g"/>
                                                 <constraint firstItem="eGa-a8-E7U" firstAttribute="centerX" secondItem="Hog-kd-1E9" secondAttribute="centerX" id="SkK-cW-uA3"/>
                                                 <constraint firstItem="eGa-a8-E7U" firstAttribute="top" secondItem="Hog-kd-1E9" secondAttribute="top" id="sVZ-9Q-4l9"/>
@@ -659,8 +664,8 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Chewbacca" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RnX-Zl-Ett">
-                                                    <rect key="frame" x="118" y="50.5" width="90" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="R2-D2" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RnX-Zl-Ett">
+                                                    <rect key="frame" x="118" y="50.5" width="51" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -689,12 +694,15 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Title" id="kWy-re-6Wo"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="dbt-CN-WQe" id="Nf8-Cw-Gtw"/>
                         <outlet property="bornYearLabel" destination="tJP-eb-gNc" id="J2R-fa-46h"/>
                         <outlet property="eyeColorLabel" destination="dlD-tI-KCH" id="7Eh-vZ-fUO"/>
                         <outlet property="hairColorLabel" destination="2xV-4J-oaF" id="D2M-5M-4n2"/>
                         <outlet property="heightLabel" destination="KFv-Sn-7Qv" id="Vks-wk-Up1"/>
                         <outlet property="homeLabel" destination="hol-Qu-hhh" id="q98-pZ-X2i"/>
+                        <outlet property="largestLabel" destination="RnX-Zl-Ett" id="lXr-te-S45"/>
                         <outlet property="peopleListPickerView" destination="eGa-a8-E7U" id="phe-nD-vb0"/>
+                        <outlet property="smallestLabel" destination="NcF-6a-zKT" id="k5e-Zb-HcW"/>
                         <outlet property="titleLabel" destination="oGf-sN-3GI" id="C1i-kL-dir"/>
                         <outlet property="unitConverter" destination="5xV-a9-pvQ" id="xhI-JK-yYZ"/>
                     </connections>
