@@ -36,7 +36,7 @@ class AwakenController: UITableViewController, UIPickerViewDataSource, UIPickerV
     
     var data = [AwakenData]()
     var currentPeople: People?
-    var currentVehicle: Vehicle?
+    var currentMachine: TransportMachine?
     var endpoint: Endpoint?
     var entity: Entity?
     
@@ -112,24 +112,22 @@ class AwakenController: UITableViewController, UIPickerViewDataSource, UIPickerV
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        switch entity! {
-        case .people:
-            self.currentPeople = self.data[row] as? People
-            if let people = self.currentPeople {
-                let viewModel = PeopleViewModel(people: people)
-                configure(with: viewModel)
-                
+        if let entity = entity {
+            switch entity {
+            case .people:
+                self.currentPeople = self.data[row] as? People
+                if let people = self.currentPeople {
+                    let viewModel = PeopleViewModel(people: people)
+                    configure(with: viewModel)
+                }
+            case .vehicles, .starships:
+                self.currentMachine = self.data[row] as? TransportMachine
+                if let machine = self.currentMachine {
+                    let viewModel = TransportMachineViewModel(machine: machine)
+                    configure(with: viewModel)
+                }
             }
-        case .vehicles:
-            self.currentVehicle = self.data[row] as? Vehicle
-            if let vehicle = self.currentVehicle {
-                let viewModel = VehicleViewModel(vehicle: vehicle)
-                configure(with: viewModel)
-            }
-        case .starships:
-            break
         }
-        
     }
     
     
@@ -144,7 +142,7 @@ class AwakenController: UITableViewController, UIPickerViewDataSource, UIPickerV
         }
     }
     
-    func configure(with viewModel: VehicleViewModel) {
+    func configure(with viewModel: TransportMachineViewModel) {
         self.titleLabel.text = viewModel.name
         self.bornYearLabel.text = viewModel.manufacturer
         self.eyeColorLabel.text = viewModel.cost
@@ -159,7 +157,7 @@ class AwakenController: UITableViewController, UIPickerViewDataSource, UIPickerV
         if let people = currentPeople {
             displayMeasure(measure: people.measure)
         }
-        if let vehicle = currentVehicle {
+        if let vehicle = currentMachine {
             displayMeasure(measure: vehicle.measure)
         }
     }

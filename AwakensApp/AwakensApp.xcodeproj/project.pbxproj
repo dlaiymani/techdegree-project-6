@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		AA1D2267227984E300F7AD71 /* PeopleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1D2266227984E300F7AD71 /* PeopleViewModel.swift */; };
-		AA1D226922798A2800F7AD71 /* VehicleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1D226822798A2800F7AD71 /* VehicleViewModel.swift */; };
+		AA1D226922798A2800F7AD71 /* TransportMachineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1D226822798A2800F7AD71 /* TransportMachineViewModel.swift */; };
 		AA230273227831A000FEF7EE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA230272227831A000FEF7EE /* AppDelegate.swift */; };
 		AA230275227831A000FEF7EE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA230274227831A000FEF7EE /* ViewController.swift */; };
 		AA230278227831A000FEF7EE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA230276227831A000FEF7EE /* Main.storyboard */; };
@@ -28,7 +28,7 @@
 
 /* Begin PBXFileReference section */
 		AA1D2266227984E300F7AD71 /* PeopleViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleViewModel.swift; sourceTree = "<group>"; };
-		AA1D226822798A2800F7AD71 /* VehicleViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehicleViewModel.swift; sourceTree = "<group>"; };
+		AA1D226822798A2800F7AD71 /* TransportMachineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransportMachineViewModel.swift; sourceTree = "<group>"; };
 		AA23026F227831A000FEF7EE /* AwakensApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AwakensApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA230272227831A000FEF7EE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AA230274227831A000FEF7EE /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -63,7 +63,7 @@
 			isa = PBXGroup;
 			children = (
 				AA1D2266227984E300F7AD71 /* PeopleViewModel.swift */,
-				AA1D226822798A2800F7AD71 /* VehicleViewModel.swift */,
+				AA1D226822798A2800F7AD71 /* TransportMachineViewModel.swift */,
 			);
 			path = "View Models";
 			sourceTree = "<group>";
@@ -228,7 +228,7 @@
 				AA2302A3227898D500FEF7EE /* SearchPeopleDataSource.swift in Sources */,
 				AA23029B22788F1000FEF7EE /* AwakensAPIClient.swift in Sources */,
 				AA230275227831A000FEF7EE /* ViewController.swift in Sources */,
-				AA1D226922798A2800F7AD71 /* VehicleViewModel.swift in Sources */,
+				AA1D226922798A2800F7AD71 /* TransportMachineViewModel.swift in Sources */,
 				AA2302862278334B00FEF7EE /* People.swift in Sources */,
 				AA230273227831A000FEF7EE /* AppDelegate.swift in Sources */,
 				AA23029E22788FB800FEF7EE /* Endpoint.swift in Sources */,
