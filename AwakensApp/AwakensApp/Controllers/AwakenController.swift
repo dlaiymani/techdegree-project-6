@@ -13,11 +13,11 @@ class AwakenController: UITableViewController, UIPickerViewDataSource, UIPickerV
     @IBOutlet weak var dataListPickerView: UIPickerView!
     
     @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var bornYearLabel: UILabel!
-    @IBOutlet weak var homeLabel: UILabel!
-    @IBOutlet weak var heightLabel: UILabel!
-    @IBOutlet weak var eyeColorLabel: UILabel!
-    @IBOutlet weak var hairColorLabel: UILabel!
+    @IBOutlet weak var firstLabel: UILabel!
+    @IBOutlet weak var secondLabel: UILabel!
+    @IBOutlet weak var thirdLabel: UILabel!
+    @IBOutlet weak var fourthLabel: UILabel!
+    @IBOutlet weak var fifthLabel: UILabel!
     
     @IBOutlet weak var smallestLabel: UILabel!
     @IBOutlet weak var largestLabel: UILabel!
@@ -135,22 +135,23 @@ class AwakenController: UITableViewController, UIPickerViewDataSource, UIPickerV
     
     func configure(with viewModel: PeopleViewModel) {
         self.titleLabel.text = viewModel.name
-        self.bornYearLabel.text = viewModel.birthYear
-        self.eyeColorLabel.text = viewModel.eyeColor
-        self.hairColorLabel.text = viewModel.hairColor
+        self.firstLabel.text = viewModel.birthYear
+        self.fourthLabel.text = viewModel.eyeColor
+        self.fifthLabel.text = viewModel.hairColor
         self.displayMeasure(measure: viewModel.height)
         client.lookupHome(withId: viewModel.home) { (home, error) in
-            self.homeLabel.text = home
+            self.secondLabel.text = home
         }
     }
     
     func configure(with viewModel: TransportMachineViewModel) {
         self.titleLabel.text = viewModel.name
-        self.bornYearLabel.text = viewModel.manufacturer
-        self.eyeColorLabel.text = viewModel.cost
-        self.hairColorLabel.text = viewModel.crew
-        self.homeLabel.text = viewModel.crew
+        self.firstLabel.text = viewModel.manufacturer
+        self.secondLabel.text = viewModel.cost
+        self.fourthLabel.text = viewModel.vehicleClass
+        self.fifthLabel.text = viewModel.crew
         self.displayMeasure(measure: viewModel.length)
+        self.currencyConverter.selectedSegmentIndex = 1
     }
     
     
@@ -169,9 +170,9 @@ class AwakenController: UITableViewController, UIPickerViewDataSource, UIPickerV
         if let sizeInCm = Double(measure) {
             if metricUnit {
                 if entity == .people {
-                    self.heightLabel.text = "\(measure)cm"
+                    self.thirdLabel.text = "\(measure)cm"
                 } else {
-                    self.heightLabel.text = "\(measure)m"
+                    self.thirdLabel.text = "\(measure)m"
                 }
             } else {
                 var heightInFeet = 0.0
@@ -183,28 +184,43 @@ class AwakenController: UITableViewController, UIPickerViewDataSource, UIPickerV
                 }
 
                 let formattedHeight = String(format: "%.2f", heightInFeet)
-                self.heightLabel.text = "\(formattedHeight)ft"
+                self.thirdLabel.text = "\(formattedHeight)ft"
             }
         }
     }
     
     
+    // rework on optionnals
     @IBAction func currencyConverterTapped(_ sender: UISegmentedControl) {
-        let alertController = UIAlertController(title: "Currency converterot USD", message: "Please enter an exchange rate", preferredStyle: .alert)
-        alertController.addTextField { textField in
-            textField.placeholder = "Exchange Rate"
-        }
-        let confirmAction = UIAlertAction(title: "OK", style: .default) { [weak alertController] _ in
-            guard let alertController = alertController, let textField = alertController.textFields?.first else { return }
-            if let rate = Double(textField.text!), let cost = Double(self.homeLabel.text!) {
-                let usdValue = cost*rate
-                self.homeLabel.text = "\(usdValue)$"
+        
+        var conversionRate = 1.0
+        if let currentMachine = currentMachine {
+            if let costInCredits = Double(currentMachine.costInCredits) {
+                if currencyConverter.selectedSegmentIndex == 0 {
+                    let alertController = UIAlertController(title: "Currency converter to USD", message: "Please enter an exchange rate", preferredStyle: .alert)
+                    alertController.addTextField { textField in
+                        textField.placeholder = "Exchange Rate"
+                    }
+                    let confirmAction = UIAlertAction(title: "OK", style: .default) { [weak alertController] _ in
+                        guard let alertController = alertController, let textField = alertController.textFields?.first else { return }
+                        if let rate = Double(textField.text!) {
+                            conversionRate = rate
+                            let usdValue = costInCredits*conversionRate
+                            self.secondLabel.text = "\(usdValue)$"
+                        }
+                    }
+                    alertController.addAction(confirmAction)
+                    let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+                    alertController.addAction(cancelAction)
+                    present(alertController, animated: true, completion: nil)
+                } else {
+                    self.secondLabel.text = "\(costInCredits) credits"
+                }
+            } else {
+                currencyConverter.selectedSegmentIndex = 1
             }
         }
-        alertController.addAction(confirmAction)
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        alertController.addAction(cancelAction)
-        present(alertController, animated: true, completion: nil)
+        
     }
     
 }

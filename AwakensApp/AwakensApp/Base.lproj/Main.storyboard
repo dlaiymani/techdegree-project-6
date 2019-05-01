@@ -708,15 +708,15 @@
                     <navigationItem key="navigationItem" title="Title" id="kWy-re-6Wo"/>
                     <connections>
                         <outlet property="activityIndicator" destination="dbt-CN-WQe" id="Nf8-Cw-Gtw"/>
-                        <outlet property="bornYearLabel" destination="tJP-eb-gNc" id="J2R-fa-46h"/>
                         <outlet property="currencyConverter" destination="F7D-XH-YFn" id="4Hm-yY-Ktb"/>
                         <outlet property="dataListPickerView" destination="eGa-a8-E7U" id="phe-nD-vb0"/>
-                        <outlet property="eyeColorLabel" destination="dlD-tI-KCH" id="7Eh-vZ-fUO"/>
-                        <outlet property="hairColorLabel" destination="2xV-4J-oaF" id="D2M-5M-4n2"/>
-                        <outlet property="heightLabel" destination="KFv-Sn-7Qv" id="Vks-wk-Up1"/>
-                        <outlet property="homeLabel" destination="hol-Qu-hhh" id="q98-pZ-X2i"/>
+                        <outlet property="fifthLabel" destination="2xV-4J-oaF" id="D2M-5M-4n2"/>
+                        <outlet property="firstLabel" destination="tJP-eb-gNc" id="J2R-fa-46h"/>
+                        <outlet property="fourthLabel" destination="dlD-tI-KCH" id="7Eh-vZ-fUO"/>
                         <outlet property="largestLabel" destination="RnX-Zl-Ett" id="lXr-te-S45"/>
+                        <outlet property="secondLabel" destination="hol-Qu-hhh" id="q98-pZ-X2i"/>
                         <outlet property="smallestLabel" destination="NcF-6a-zKT" id="k5e-Zb-HcW"/>
+                        <outlet property="thirdLabel" destination="KFv-Sn-7Qv" id="Vks-wk-Up1"/>
                         <outlet property="titleLabel" destination="oGf-sN-3GI" id="C1i-kL-dir"/>
                         <outlet property="unitConverter" destination="5xV-a9-pvQ" id="xhI-JK-yYZ"/>
                         <outletCollection property="descriptionLabels" destination="98W-Jq-r3y" collectionClass="NSMutableArray" id="UNU-pk-fcK"/>
