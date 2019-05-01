@@ -50,7 +50,7 @@ extension Awakens: Endpoint {
     var path: String {
         
         switch self {
-        case .search(let entity, let page):
+        case .search(let entity, _):
             return "/api/\(entity.rawValue)/".addingpercentEncoding()
         case .lookup(let entity, let id):
             return "/api/\(entity.rawValue)/\(id)"
@@ -59,13 +59,13 @@ extension Awakens: Endpoint {
     
    var queryItems: [URLQueryItem] {
         switch self {
-        case .search(let entity, let page):
+        case .search(_, let page):
             var result = [URLQueryItem]()
             
             let searchItem = URLQueryItem(name: "page", value: String(page))
             result.append(searchItem)
             return result
-        case .lookup(let id, let entity):
+        case .lookup(_, _):
             return []
             
         }

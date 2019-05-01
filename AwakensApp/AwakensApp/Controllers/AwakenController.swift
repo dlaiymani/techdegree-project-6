@@ -64,7 +64,12 @@ class AwakenController: UITableViewController, UIPickerViewDataSource, UIPickerV
         
         client.searchForData(with : endpoint!, forEntity: entity!) { [weak self] data, nb, error in
             
-            self?.createDataArray(with: data, forSize: nb!)
+            if let error = error {
+                print(error)
+            } else {
+                self?.createDataArray(with: data, forSize: nb!)
+            }
+            
         }
         
     }
