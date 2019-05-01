@@ -10,6 +10,43 @@ import Foundation
 
 class AwakensAPIClient {
     var downloader = JSONDownloader()
+    
+    func searchForData(with endpoint: Endpoint, forEntity entity: Entity, completion: @escaping ([AwakenData], Int?, AwakensError?) -> Void) {
+        
+        getNumberOfElements(with: endpoint) { (nbOfElements, error) in
+            guard let nbOfElements = nbOfElements else {
+                completion([], nil, error)
+                return
+            }
+            
+            let nbPages = Int(ceil(Double(nbOfElements) / 10.0))
+            for i in 1...nbPages {
+                let endpoint = Awakens.search(entity: entity, page: i)
+                
+                self.performRequest(with: endpoint) { (results, error) in
+                    guard let results = results else {
+                        completion([], nil, error)
+                        return
+                    }
+                    
+                    switch entity {
+                    case .people:
+                        let data = results.compactMap({ People(json: $0) })
+                        completion(data, nbOfElements, nil)
+                    case .vehicles:
+                        let data = results.compactMap({ Vehicle(json: $0) })
+                        completion(data, nbOfElements, nil)
+                    case .starships:
+                        break
+                        
+                    }
+                }
+                
+            }
+            
+        }
+        
+    }
 
 
     func searchForCharacters(with endpoint: Endpoint, completion: @escaping ([AwakenData], Int?, AwakensError?) -> Void) {

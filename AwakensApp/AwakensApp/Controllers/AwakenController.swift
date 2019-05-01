@@ -25,6 +25,12 @@ class AwakenController: UITableViewController, UIPickerViewDataSource, UIPickerV
     
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
+    
+    @IBOutlet var descriptionLabels: [UILabel]!
+    
+    
+    
+    
     let client = AwakensAPIClient()
     var peopleData = [People]()
     var vehicleData = [Vehicle]()
@@ -47,9 +53,14 @@ class AwakenController: UITableViewController, UIPickerViewDataSource, UIPickerV
         unitConverter.selectedSegmentIndex = 1
         activityIndicator.startAnimating()
         
-        if let entity = entity {
-            downloadData(for: entity)
+        client.searchForData(with : endpoint!, forEntity: entity!) { [weak self] data, nb, error in
+            
+            self?.createDataArray(with: data, forSize: nb!)
         }
+        
+      /*  if let entity = entity {
+            downloadData(for: entity)
+        }*/
         
         
       /*  client.searchForCharacters { [weak self] peoples, nb, error in
@@ -88,7 +99,7 @@ class AwakenController: UITableViewController, UIPickerViewDataSource, UIPickerV
     
     
     func searchForPeople() {
-        client.searchForCharacters(with : endpoint!) { [weak self] peoples, nb, error in
+        client.searchForData(with : endpoint!, forEntity: .people) { [weak self] peoples, nb, error in
             
             self?.createDataArray(with: peoples, forSize: nb!)
             

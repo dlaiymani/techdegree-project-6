@@ -705,6 +705,7 @@
                         <outlet property="smallestLabel" destination="NcF-6a-zKT" id="k5e-Zb-HcW"/>
                         <outlet property="titleLabel" destination="oGf-sN-3GI" id="C1i-kL-dir"/>
                         <outlet property="unitConverter" destination="5xV-a9-pvQ" id="xhI-JK-yYZ"/>
+                        <outletCollection property="descriptionLabels" destination="F16-b3-wRc" collectionClass="NSMutableArray" id="see-U2-SIZ"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="b6c-ky-FGf" userLabel="First Responder" sceneMemberID="firstResponder"/>
