@@ -8,11 +8,17 @@
 
 import Foundation
 
-class People {
-    let name: String
+protocol AwakenData {
+    var name: String { get }
+    var measure: String { get }
+}
+
+class People: AwakenData {
+    
+    var name: String
     let birthYear: String
     let homeUrl: String
-    let height: String
+    var measure: String
     let eyeColor: String
     let hairColor: String
     
@@ -20,7 +26,7 @@ class People {
         self.name = name
         self.birthYear = birthYear
         self.homeUrl = homeUrl
-        self.height = height
+        self.measure = height
         self.eyeColor = eyeColor
         self.hairColor = hairColor
     }

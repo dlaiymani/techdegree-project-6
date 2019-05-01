@@ -12,9 +12,8 @@ class AwakensAPIClient {
     var downloader = JSONDownloader()
 
 
-    func searchForCharacters(completion: @escaping ([People], Int?, AwakensError?) -> Void) {
+    func searchForCharacters(with endpoint: Endpoint, completion: @escaping ([AwakenData], Int?, AwakensError?) -> Void) {
         
-        let endpoint = Awakens.search(entity: .people, page: 1)        
         getNumberOfElements(with: endpoint) { (nbOfElements, error) in
             guard let nbOfElements = nbOfElements else {
                 completion([], nil, error)
@@ -36,15 +35,39 @@ class AwakensAPIClient {
                 }
                 
             }
-            //print(peoplesTotal)
-            
-            // completion(peoplesTotal, nil)
-            
+           
         }
         
     }
 
    
+    
+    func searchForVehicles(with endpoint: Endpoint, completion: @escaping ([AwakenData], Int?, AwakensError?) -> Void) {
+        getNumberOfElements(with: endpoint) { (nbOfElements, error) in
+            guard let nbOfElements = nbOfElements else {
+                completion([], nil, error)
+                return
+            }
+            
+            let nbPages = Int(ceil(Double(nbOfElements) / 10.0))
+            for i in 1...nbPages {
+                let endpoint = Awakens.search(entity: .vehicles, page: i)
+                
+                self.performRequest(with: endpoint) { (results, error) in
+                    guard let results = results else {
+                        completion([], nil, error)
+                        return
+                    }
+                    
+                    let vehicles = results.flatMap({ Vehicle(json: $0) })
+                    completion(vehicles, nbOfElements, nil)
+                }
+                
+            }
+            
+        }
+        
+    }
     
     private func getNumberOfElements(with endpoint: Endpoint, completion: @escaping (Int?, AwakensError?) -> Void) {
         

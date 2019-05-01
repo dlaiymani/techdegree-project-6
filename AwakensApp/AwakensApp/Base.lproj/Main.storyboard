@@ -63,7 +63,7 @@
                                                     <color key="titleColor" red="0.47843137250000001" green="0.80784313730000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </state>
                                                 <connections>
-                                                    <segue destination="BbX-IJ-xRh" kind="show" identifier="vehicleSegue" id="7yZ-mE-5bL"/>
+                                                    <segue destination="7oF-E6-dDr" kind="show" identifier="vehicleSegue" id="rNT-ad-5Ma"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -92,7 +92,7 @@
                                                     <color key="titleColor" red="0.47843137250000001" green="0.80784313730000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </state>
                                                 <connections>
-                                                    <segue destination="BbX-IJ-xRh" kind="show" identifier="starshipSegue" id="IHh-br-cxX"/>
+                                                    <segue destination="7oF-E6-dDr" kind="show" identifier="starshipSegue" id="2IZ-e0-tlb"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -132,7 +132,7 @@
         <!--Title-->
         <scene sceneID="8ee-vj-LJz">
             <objects>
-                <tableViewController id="BbX-IJ-xRh" sceneMemberID="viewController">
+                <tableViewController id="BbX-IJ-xRh" customClass="AwakenController" customModule="AwakensApp" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="Mpp-jO-YEK">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -427,7 +427,7 @@
         <!--Title-->
         <scene sceneID="g7l-O2-5zs">
             <objects>
-                <tableViewController id="7oF-E6-dDr" customClass="PeopleController" customModule="AwakensApp" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="7oF-E6-dDr" customClass="AwakenController" customModule="AwakensApp" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="d6L-vN-LXl">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -696,12 +696,12 @@
                     <connections>
                         <outlet property="activityIndicator" destination="dbt-CN-WQe" id="Nf8-Cw-Gtw"/>
                         <outlet property="bornYearLabel" destination="tJP-eb-gNc" id="J2R-fa-46h"/>
+                        <outlet property="dataListPickerView" destination="eGa-a8-E7U" id="phe-nD-vb0"/>
                         <outlet property="eyeColorLabel" destination="dlD-tI-KCH" id="7Eh-vZ-fUO"/>
                         <outlet property="hairColorLabel" destination="2xV-4J-oaF" id="D2M-5M-4n2"/>
                         <outlet property="heightLabel" destination="KFv-Sn-7Qv" id="Vks-wk-Up1"/>
                         <outlet property="homeLabel" destination="hol-Qu-hhh" id="q98-pZ-X2i"/>
                         <outlet property="largestLabel" destination="RnX-Zl-Ett" id="lXr-te-S45"/>
-                        <outlet property="peopleListPickerView" destination="eGa-a8-E7U" id="phe-nD-vb0"/>
                         <outlet property="smallestLabel" destination="NcF-6a-zKT" id="k5e-Zb-HcW"/>
                         <outlet property="titleLabel" destination="oGf-sN-3GI" id="C1i-kL-dir"/>
                         <outlet property="unitConverter" destination="5xV-a9-pvQ" id="xhI-JK-yYZ"/>
@@ -718,6 +718,6 @@
         <image name="vehicles" width="100" height="100"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="IHh-br-cxX"/>
+        <segue reference="2IZ-e0-tlb"/>
     </inferredMetricsTieBreakers>
 </document>

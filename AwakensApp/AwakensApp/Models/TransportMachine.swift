@@ -8,18 +8,18 @@
 
 import Foundation
 
-class TransportMachine {
-    let name: String
+class TransportMachine: AwakenData  {
+    var name: String
+    var measure: String
     let manufacturer: String
     let costInCredits: String
-    let length: String
     let crew: String
     
     init(name: String, manufacturer: String, costInCredits: String, length: String, crew: String) {
         self.name = name
         self.manufacturer = manufacturer
         self.costInCredits = costInCredits
-        self.length = length
+        self.measure = length
         self.crew = crew
     }
     
