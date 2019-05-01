@@ -54,8 +54,10 @@ class AwakenController: UITableViewController, UIPickerViewDataSource, UIPickerV
         if let entity = entity {
             if entity == .people {
                 currencyConverter.isHidden = true
+                currencyConverter.isEnabled = false
             } else {
                 currencyConverter.isHidden = false
+                currencyConverter.isEnabled = true
             }
         }
         activityIndicator.startAnimating()
@@ -185,4 +187,24 @@ class AwakenController: UITableViewController, UIPickerViewDataSource, UIPickerV
             }
         }
     }
+    
+    
+    @IBAction func currencyConverterTapped(_ sender: UISegmentedControl) {
+        let alertController = UIAlertController(title: "Currency converterot USD", message: "Please enter an exchange rate", preferredStyle: .alert)
+        alertController.addTextField { textField in
+            textField.placeholder = "Exchange Rate"
+        }
+        let confirmAction = UIAlertAction(title: "OK", style: .default) { [weak alertController] _ in
+            guard let alertController = alertController, let textField = alertController.textFields?.first else { return }
+            if let rate = Double(textField.text!), let cost = Double(self.homeLabel.text!) {
+                let usdValue = cost*rate
+                self.homeLabel.text = "\(usdValue)$"
+            }
+        }
+        alertController.addAction(confirmAction)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alertController.addAction(cancelAction)
+        present(alertController, animated: true, completion: nil)
+    }
+    
 }

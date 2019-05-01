@@ -507,6 +507,9 @@
                                                         <segment title="Credits"/>
                                                     </segments>
                                                     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <connections>
+                                                        <action selector="currencyConverterTapped:" destination="7oF-E6-dDr" eventType="valueChanged" id="321-eM-ZXe"/>
+                                                    </connections>
                                                 </segmentedControl>
                                             </subviews>
                                             <constraints>
