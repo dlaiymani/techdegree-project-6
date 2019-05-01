@@ -500,12 +500,22 @@
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="F7D-XH-YFn">
+                                                    <rect key="frame" x="269" y="8" width="117" height="29"/>
+                                                    <segments>
+                                                        <segment title="USD"/>
+                                                        <segment title="Credits"/>
+                                                    </segments>
+                                                    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </segmentedControl>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="hol-Qu-hhh" firstAttribute="leading" secondItem="F16-b3-wRc" secondAttribute="leading" constant="60" id="BHI-ql-oBC"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="F7D-XH-YFn" secondAttribute="trailing" constant="8" id="Ga3-FT-1OB"/>
                                                 <constraint firstItem="hol-Qu-hhh" firstAttribute="centerY" secondItem="1ee-OO-RCS" secondAttribute="centerY" id="PyW-x4-4eY"/>
                                                 <constraint firstItem="F16-b3-wRc" firstAttribute="centerY" secondItem="1ee-OO-RCS" secondAttribute="centerY" id="Q7x-VR-i7R"/>
                                                 <constraint firstItem="F16-b3-wRc" firstAttribute="leading" secondItem="1ee-OO-RCS" secondAttribute="leadingMargin" constant="8" id="bFf-XT-0w4"/>
+                                                <constraint firstItem="F7D-XH-YFn" firstAttribute="centerY" secondItem="1ee-OO-RCS" secondAttribute="centerY" id="lKa-h6-doW"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -523,8 +533,8 @@
                                                     <color key="textColor" red="0.47843137250000001" green="0.80784313730000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.00m" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KFv-Sn-7Qv">
-                                                    <rect key="frame" x="88" y="11.5" width="49" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="123cm" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KFv-Sn-7Qv">
+                                                    <rect key="frame" x="88" y="11.5" width="51.5" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
@@ -696,6 +706,7 @@
                     <connections>
                         <outlet property="activityIndicator" destination="dbt-CN-WQe" id="Nf8-Cw-Gtw"/>
                         <outlet property="bornYearLabel" destination="tJP-eb-gNc" id="J2R-fa-46h"/>
+                        <outlet property="currencyConverter" destination="F7D-XH-YFn" id="4Hm-yY-Ktb"/>
                         <outlet property="dataListPickerView" destination="eGa-a8-E7U" id="phe-nD-vb0"/>
                         <outlet property="eyeColorLabel" destination="dlD-tI-KCH" id="7Eh-vZ-fUO"/>
                         <outlet property="hairColorLabel" destination="2xV-4J-oaF" id="D2M-5M-4n2"/>
@@ -705,7 +716,11 @@
                         <outlet property="smallestLabel" destination="NcF-6a-zKT" id="k5e-Zb-HcW"/>
                         <outlet property="titleLabel" destination="oGf-sN-3GI" id="C1i-kL-dir"/>
                         <outlet property="unitConverter" destination="5xV-a9-pvQ" id="xhI-JK-yYZ"/>
-                        <outletCollection property="descriptionLabels" destination="F16-b3-wRc" collectionClass="NSMutableArray" id="see-U2-SIZ"/>
+                        <outletCollection property="descriptionLabels" destination="98W-Jq-r3y" collectionClass="NSMutableArray" id="UNU-pk-fcK"/>
+                        <outletCollection property="descriptionLabels" destination="F16-b3-wRc" collectionClass="NSMutableArray" id="FFQ-va-n4t"/>
+                        <outletCollection property="descriptionLabels" destination="tRM-dS-lfE" collectionClass="NSMutableArray" id="GEb-11-ban"/>
+                        <outletCollection property="descriptionLabels" destination="F5b-S5-s6C" collectionClass="NSMutableArray" id="AD1-EP-2nt"/>
+                        <outletCollection property="descriptionLabels" destination="bCB-mb-PTy" collectionClass="NSMutableArray" id="jzM-nj-73T"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="b6c-ky-FGf" userLabel="First Responder" sceneMemberID="firstResponder"/>
