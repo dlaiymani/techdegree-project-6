@@ -19,6 +19,9 @@ class AwakenController: UITableViewController, UIPickerViewDelegate {
     @IBOutlet weak var fourthLabel: UILabel!
     @IBOutlet weak var fifthLabel: UILabel!
     
+    @IBOutlet weak var cellVehiculeLabel: UILabel!
+    @IBOutlet weak var cellStarshipLabel: UILabel!
+    
     @IBOutlet weak var smallestLabel: UILabel!
     @IBOutlet weak var largestLabel: UILabel!
     @IBOutlet weak var unitConverter: UISegmentedControl!
@@ -55,6 +58,8 @@ class AwakenController: UITableViewController, UIPickerViewDelegate {
         dataListPickerView.dataSource = dataSource
         
         activityIndicator.startAnimating()
+        self.tableView.cellForRow(at: IndexPath(row: 0, section: 2))?.isUserInteractionEnabled = false
+        self.tableView.cellForRow(at: IndexPath(row: 1, section: 2))?.isUserInteractionEnabled = false
         
         client.searchForData(with : endpoint!, forEntity: entity!) { [weak self] data, nb, error in
             
@@ -79,7 +84,7 @@ class AwakenController: UITableViewController, UIPickerViewDelegate {
                 descriptionLabels[index].text = descriptionLabelsForVehicle[index]
             }
         }
-        
+
     }
     
     func configureConverters() {
@@ -110,12 +115,17 @@ class AwakenController: UITableViewController, UIPickerViewDelegate {
     }
     
     func configure(with viewModel: PeopleViewModel) {
+        
+       
         self.titleLabel.text = viewModel.name
         self.firstLabel.text = viewModel.birthYear
         self.fourthLabel.text = viewModel.eyeColor
         self.fifthLabel.text = viewModel.hairColor
         self.displayMeasure(measure: viewModel.height)
         self.secondLabel.text = "Loading..."
+        
+        
+
         client.lookupHome(withId: viewModel.home) { (home, error) in
             
             if let error = error {
@@ -125,6 +135,7 @@ class AwakenController: UITableViewController, UIPickerViewDelegate {
                 self.secondLabel.text = home
             }
         }
+
     }
     
     func configure(with viewModel: TransportMachineViewModel) {
@@ -144,10 +155,13 @@ class AwakenController: UITableViewController, UIPickerViewDelegate {
         if dataSource.numberOfElements() >= size { // all the data are downloaded
             self.dataListPickerView.reloadAllComponents()
             self.activityIndicator.stopAnimating()
+//            self.tableView.cellForRow(at: IndexPath(row: 0, section: 2))?.isUserInteractionEnabled = true
+//            self.tableView.cellForRow(at: IndexPath(row: 1, section: 2))?.isUserInteractionEnabled = true
             self.activityIndicator.isHidden = true
             self.smallestLabel.text = dataSource.smallestElement()?.name
             self.largestLabel.text = dataSource.greatestElement()?.name
             self.pickerView(self.dataListPickerView, didSelectRow: 0, inComponent: 0)
+            
         }
         
     }
@@ -267,6 +281,42 @@ class AwakenController: UITableViewController, UIPickerViewDelegate {
             alert(withTitle: "Bad server response", andMessage: "The server's response seems incorrect")
         case .jsonParsingFailure(let message):
             alert(withTitle: "JSON error", andMessage: message)
+        }
+    }
+    
+    // MARK: - Navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        guard let people = currentPeople else { return }
+        let machinesController = segue.destination as! MachinesController
+        
+        switch segue.identifier {
+        case "showVehicles":
+            let numberOfVehicles = people.vehicles.count
+            if numberOfVehicles > 0 {
+                machinesController.peopleName = "\(people.name)'s Vehicules"
+                for i in 0...numberOfVehicles-1 {
+                    client.lookupHome(withId: people.vehicles[i]) { (vehiculeName, error) in
+                        machinesController.machinesNames = [vehiculeName!]
+                    }
+                }
+            } else {
+                machinesController.peopleName = "No Vehicules"
+            }
+        case "showStarships":
+                let numberOfStarships = people.starships.count
+                if numberOfStarships > 0 {
+                    machinesController.peopleName = "\(people.name)'s Starships"
+                    for i in 0...numberOfStarships-1 {
+                        client.lookupHome(withId: people.starships[i]) { (vehiculeName, error) in
+                            machinesController.machinesNames = [vehiculeName!]
+                        }
+                    }
+                } else {
+                    machinesController.peopleName = "No Starships"
+                }
+        default:
+            break
         }
     }
     

@@ -423,6 +423,58 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
+                            <tableViewSection id="4Cf-su-hln">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" id="hGT-Ff-Jyo">
+                                        <rect key="frame" x="0.0" y="590" width="414" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="hGT-Ff-Jyo" id="ktz-7S-Ja7">
+                                            <rect key="frame" x="0.0" y="0.0" width="376" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Vehicles" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HoD-2t-2ZJ">
+                                                    <rect key="frame" x="28" y="11.5" width="64" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.47843137250000001" green="0.80784313730000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="HoD-2t-2ZJ" firstAttribute="centerY" secondItem="ktz-7S-Ja7" secondAttribute="centerY" id="0F9-hE-dOU"/>
+                                                <constraint firstItem="HoD-2t-2ZJ" firstAttribute="leading" secondItem="ktz-7S-Ja7" secondAttribute="leadingMargin" constant="8" id="nLb-k4-TY1"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <connections>
+                                            <segue destination="Lbp-XJ-HVn" kind="show" identifier="showVehicles" id="96W-lZ-cLH"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" id="FX0-Bv-tAB">
+                                        <rect key="frame" x="0.0" y="634" width="414" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="FX0-Bv-tAB" id="2xh-wJ-Ibz">
+                                            <rect key="frame" x="0.0" y="0.0" width="376" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Starships" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1MC-Bz-Vsx">
+                                                    <rect key="frame" x="28" y="11.5" width="72" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.47843137250000001" green="0.80784313730000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="1MC-Bz-Vsx" firstAttribute="leading" secondItem="2xh-wJ-Ibz" secondAttribute="leadingMargin" constant="8" id="9kt-8c-N0g"/>
+                                                <constraint firstItem="1MC-Bz-Vsx" firstAttribute="centerY" secondItem="2xh-wJ-Ibz" secondAttribute="centerY" id="Ce6-H8-fkE"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <connections>
+                                            <segue destination="Lbp-XJ-HVn" kind="show" identifier="showStarships" id="aBH-Se-BY2"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
                         </sections>
                         <connections>
                             <outlet property="dataSource" destination="7oF-E6-dDr" id="NJp-2N-m7t"/>
@@ -432,6 +484,8 @@
                     <navigationItem key="navigationItem" title="Title" id="kWy-re-6Wo"/>
                     <connections>
                         <outlet property="activityIndicator" destination="dbt-CN-WQe" id="Nf8-Cw-Gtw"/>
+                        <outlet property="cellStarshipLabel" destination="1MC-Bz-Vsx" id="1bJ-G7-b89"/>
+                        <outlet property="cellVehiculeLabel" destination="HoD-2t-2ZJ" id="Hio-6r-rcn"/>
                         <outlet property="currencyConverter" destination="F7D-XH-YFn" id="4Hm-yY-Ktb"/>
                         <outlet property="dataListPickerView" destination="eGa-a8-E7U" id="phe-nD-vb0"/>
                         <outlet property="fifthLabel" destination="2xV-4J-oaF" id="D2M-5M-4n2"/>
@@ -452,7 +506,55 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="b6c-ky-FGf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1432" y="-346"/>
+            <point key="canvasLocation" x="1029" y="-346"/>
+        </scene>
+        <!--Machines Controller-->
+        <scene sceneID="J7x-Bz-C7f">
+            <objects>
+                <tableViewController id="Lbp-XJ-HVn" customClass="MachinesController" customModule="AwakensApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="D9a-TB-7jS">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <view key="tableHeaderView" contentMode="scaleToFill" id="JnK-OT-5gc">
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="60"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lba-3m-yHl">
+                                    <rect key="frame" x="181" y="17" width="52.5" height="26.5"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstItem="Lba-3m-yHl" firstAttribute="centerX" secondItem="JnK-OT-5gc" secondAttribute="centerX" id="K7E-RH-8Fm"/>
+                                <constraint firstItem="Lba-3m-yHl" firstAttribute="centerY" secondItem="JnK-OT-5gc" secondAttribute="centerY" id="T4k-gT-ooa"/>
+                            </constraints>
+                        </view>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="MachineCell" id="MoY-l0-Xtq">
+                                <rect key="frame" x="0.0" y="88" width="414" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="MoY-l0-Xtq" id="a9e-cD-bnf">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="Lbp-XJ-HVn" id="l7o-bC-dLj"/>
+                            <outlet property="delegate" destination="Lbp-XJ-HVn" id="8hP-Gu-vdo"/>
+                        </connections>
+                    </tableView>
+                    <connections>
+                        <outlet property="titleLabel" destination="Lba-3m-yHl" id="ihx-4o-3Ym"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1lh-xT-sDZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1951" y="-346"/>
         </scene>
     </scenes>
     <resources>
@@ -461,6 +563,7 @@
         <image name="vehicles" width="100" height="100"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="aBH-Se-BY2"/>
         <segue reference="2IZ-e0-tlb"/>
     </inferredMetricsTieBreakers>
 </document>

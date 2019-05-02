@@ -21,14 +21,18 @@ class People: AwakenData {
     var measure: String
     let eyeColor: String
     let hairColor: String
+    let vehicles: [String]
+    let starships: [String]
     
-    init(name: String, birthYear: String, homeUrl: String, height: String, eyeColor: String, hairColor: String) {
+    init(name: String, birthYear: String, homeUrl: String, height: String, eyeColor: String, hairColor: String, vehicles: [String], starships: [String]) {
         self.name = name
         self.birthYear = birthYear
         self.homeUrl = homeUrl
         self.measure = height
         self.eyeColor = eyeColor
         self.hairColor = hairColor
+        self.vehicles = vehicles
+        self.starships = starships
     }
 }
 
@@ -43,6 +47,8 @@ extension People {
             static let height = "height"
             static let eyeColor = "eye_color"
             static let hairColor = "hair_color"
+            static let vehicles = "vehicles"
+            static let starships = "starships"
         }
         
         guard let name = json[Key.name] as? String,
@@ -50,9 +56,12 @@ extension People {
             let homeUrl = json[Key.homeUrl] as? String,
             let height = json[Key.height] as? String,
             let eyeColor = json[Key.eyeColor] as? String,
-            let hairColor = json[Key.hairColor] as? String else { return nil }
+            let hairColor = json[Key.hairColor] as? String,
+            let vehicles = json[Key.vehicles] as? [String],
+            let starships = json[Key.starships] as? [String] else { return nil }
         
-        self.init(name: name, birthYear: birthYear, homeUrl: homeUrl, height: height, eyeColor: eyeColor, hairColor: hairColor)
+        self.init(name: name, birthYear: birthYear, homeUrl: homeUrl, height: height, eyeColor: eyeColor, hairColor: hairColor, vehicles: vehicles,
+                starships: starships)
         
     }
 }

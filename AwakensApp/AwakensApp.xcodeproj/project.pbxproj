@@ -10,6 +10,8 @@
 		AA1D2267227984E300F7AD71 /* PeopleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1D2266227984E300F7AD71 /* PeopleViewModel.swift */; };
 		AA1D226922798A2800F7AD71 /* TransportMachineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1D226822798A2800F7AD71 /* TransportMachineViewModel.swift */; };
 		AA1D226B227B054400F7AD71 /* AwakenDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1D226A227B054400F7AD71 /* AwakenDataSource.swift */; };
+		AA1D226D227B223E00F7AD71 /* MachinesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1D226C227B223E00F7AD71 /* MachinesController.swift */; };
+		AA1D226F227B22F300F7AD71 /* MachinesDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1D226E227B22F300F7AD71 /* MachinesDataSource.swift */; };
 		AA230273227831A000FEF7EE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA230272227831A000FEF7EE /* AppDelegate.swift */; };
 		AA230275227831A000FEF7EE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA230274227831A000FEF7EE /* ViewController.swift */; };
 		AA230278227831A000FEF7EE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA230276227831A000FEF7EE /* Main.storyboard */; };
@@ -30,6 +32,8 @@
 		AA1D2266227984E300F7AD71 /* PeopleViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleViewModel.swift; sourceTree = "<group>"; };
 		AA1D226822798A2800F7AD71 /* TransportMachineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransportMachineViewModel.swift; sourceTree = "<group>"; };
 		AA1D226A227B054400F7AD71 /* AwakenDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AwakenDataSource.swift; sourceTree = "<group>"; };
+		AA1D226C227B223E00F7AD71 /* MachinesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MachinesController.swift; sourceTree = "<group>"; };
+		AA1D226E227B22F300F7AD71 /* MachinesDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MachinesDataSource.swift; sourceTree = "<group>"; };
 		AA23026F227831A000FEF7EE /* AwakensApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AwakensApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA230272227831A000FEF7EE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AA230274227831A000FEF7EE /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -118,6 +122,7 @@
 			children = (
 				AA230274227831A000FEF7EE /* ViewController.swift */,
 				AA23029F227896E200FEF7EE /* AwakenController.swift */,
+				AA1D226C227B223E00F7AD71 /* MachinesController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -144,6 +149,7 @@
 			isa = PBXGroup;
 			children = (
 				AA1D226A227B054400F7AD71 /* AwakenDataSource.swift */,
+				AA1D226E227B22F300F7AD71 /* MachinesDataSource.swift */,
 			);
 			path = "Data Sources";
 			sourceTree = "<group>";
@@ -225,12 +231,14 @@
 				AA2302A0227896E200FEF7EE /* AwakenController.swift in Sources */,
 				AA23029722788E7500FEF7EE /* JSONDownloader.swift in Sources */,
 				AA2302882278335800FEF7EE /* Vehicle.swift in Sources */,
+				AA1D226F227B22F300F7AD71 /* MachinesDataSource.swift in Sources */,
 				AA23028A2278337800FEF7EE /* Starship.swift in Sources */,
 				AA23029B22788F1000FEF7EE /* AwakensAPIClient.swift in Sources */,
 				AA230275227831A000FEF7EE /* ViewController.swift in Sources */,
 				AA1D226922798A2800F7AD71 /* TransportMachineViewModel.swift in Sources */,
 				AA2302862278334B00FEF7EE /* People.swift in Sources */,
 				AA230273227831A000FEF7EE /* AppDelegate.swift in Sources */,
+				AA1D226D227B223E00F7AD71 /* MachinesController.swift in Sources */,
 				AA23029E22788FB800FEF7EE /* Endpoint.swift in Sources */,
 				AA23028C22783DF800FEF7EE /* TransportMachine.swift in Sources */,
 			);
