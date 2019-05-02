@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		AA1D2267227984E300F7AD71 /* PeopleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1D2266227984E300F7AD71 /* PeopleViewModel.swift */; };
 		AA1D226922798A2800F7AD71 /* TransportMachineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1D226822798A2800F7AD71 /* TransportMachineViewModel.swift */; };
+		AA1D226B227B054400F7AD71 /* AwakenDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1D226A227B054400F7AD71 /* AwakenDataSource.swift */; };
 		AA230273227831A000FEF7EE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA230272227831A000FEF7EE /* AppDelegate.swift */; };
 		AA230275227831A000FEF7EE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA230274227831A000FEF7EE /* ViewController.swift */; };
 		AA230278227831A000FEF7EE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA230276227831A000FEF7EE /* Main.storyboard */; };
@@ -23,12 +24,12 @@
 		AA23029B22788F1000FEF7EE /* AwakensAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA23029A22788F1000FEF7EE /* AwakensAPIClient.swift */; };
 		AA23029E22788FB800FEF7EE /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA23029D22788FB800FEF7EE /* Endpoint.swift */; };
 		AA2302A0227896E200FEF7EE /* AwakenController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA23029F227896E200FEF7EE /* AwakenController.swift */; };
-		AA2302A3227898D500FEF7EE /* SearchPeopleDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2302A2227898D500FEF7EE /* SearchPeopleDataSource.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		AA1D2266227984E300F7AD71 /* PeopleViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleViewModel.swift; sourceTree = "<group>"; };
 		AA1D226822798A2800F7AD71 /* TransportMachineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransportMachineViewModel.swift; sourceTree = "<group>"; };
+		AA1D226A227B054400F7AD71 /* AwakenDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AwakenDataSource.swift; sourceTree = "<group>"; };
 		AA23026F227831A000FEF7EE /* AwakensApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AwakensApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA230272227831A000FEF7EE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AA230274227831A000FEF7EE /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -45,7 +46,6 @@
 		AA23029A22788F1000FEF7EE /* AwakensAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AwakensAPIClient.swift; sourceTree = "<group>"; };
 		AA23029D22788FB800FEF7EE /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		AA23029F227896E200FEF7EE /* AwakenController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AwakenController.swift; sourceTree = "<group>"; };
-		AA2302A2227898D500FEF7EE /* SearchPeopleDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPeopleDataSource.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -143,7 +143,7 @@
 		AA2302A12278989F00FEF7EE /* Data Sources */ = {
 			isa = PBXGroup;
 			children = (
-				AA2302A2227898D500FEF7EE /* SearchPeopleDataSource.swift */,
+				AA1D226A227B054400F7AD71 /* AwakenDataSource.swift */,
 			);
 			path = "Data Sources";
 			sourceTree = "<group>";
@@ -221,11 +221,11 @@
 			files = (
 				AA1D2267227984E300F7AD71 /* PeopleViewModel.swift in Sources */,
 				AA23029922788EA800FEF7EE /* AwakensError.swift in Sources */,
+				AA1D226B227B054400F7AD71 /* AwakenDataSource.swift in Sources */,
 				AA2302A0227896E200FEF7EE /* AwakenController.swift in Sources */,
 				AA23029722788E7500FEF7EE /* JSONDownloader.swift in Sources */,
 				AA2302882278335800FEF7EE /* Vehicle.swift in Sources */,
 				AA23028A2278337800FEF7EE /* Starship.swift in Sources */,
-				AA2302A3227898D500FEF7EE /* SearchPeopleDataSource.swift in Sources */,
 				AA23029B22788F1000FEF7EE /* AwakensAPIClient.swift in Sources */,
 				AA230275227831A000FEF7EE /* ViewController.swift in Sources */,
 				AA1D226922798A2800F7AD71 /* TransportMachineViewModel.swift in Sources */,

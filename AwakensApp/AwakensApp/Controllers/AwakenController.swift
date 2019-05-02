@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AwakenController: UITableViewController, UIPickerViewDataSource, UIPickerViewDelegate {
+class AwakenController: UITableViewController, UIPickerViewDelegate {
     
     @IBOutlet weak var dataListPickerView: UIPickerView!
     
@@ -34,32 +34,26 @@ class AwakenController: UITableViewController, UIPickerViewDataSource, UIPickerV
     
     let client = AwakensAPIClient()
     
-    var data = [AwakenData]()
     var currentPeople: People?
     var currentMachine: TransportMachine?
     var endpoint: Endpoint?
     var entity: Entity?
+    
+    lazy var dataSource: AwakenDataSource = {
+        return AwakenDataSource(data: [], pickerView: self.dataListPickerView)
+    }()
     
     var metricUnit = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        configureDecriptionLabels(forEntity: entity!)
+        configureDecriptionLabels()
+        configureConverters()
+        configureTitles()
         dataListPickerView.delegate = self
-        dataListPickerView.dataSource = self
+        dataListPickerView.dataSource = dataSource
         
-        unitConverter.selectedSegmentIndex = 1
-        currencyConverter.selectedSegmentIndex = 1
-        if let entity = entity {
-            if entity == .people {
-                currencyConverter.isHidden = true
-                currencyConverter.isEnabled = false
-            } else {
-                currencyConverter.isHidden = false
-                currencyConverter.isEnabled = true
-            }
-        }
         activityIndicator.startAnimating()
         
         client.searchForData(with : endpoint!, forEntity: entity!) { [weak self] data, nb, error in
@@ -71,72 +65,49 @@ class AwakenController: UITableViewController, UIPickerViewDataSource, UIPickerV
             }
             
         }
-        
     }
     
+    // MARK: - Configure the view
     
-    func configureDecriptionLabels(forEntity entity: Entity) {
+    func configureDecriptionLabels() {
+        guard let entity = entity else { return }
+        
         for (index, _) in descriptionLabels.enumerated() {
             if entity == .people {
                 self.descriptionLabels[index].text = descriptionLabelsForPeople[index]
             } else {
                 descriptionLabels[index].text = descriptionLabelsForVehicle[index]
-
             }
         }
-    }
-    
-
-    
-    func createDataArray(with awakenData: [AwakenData], forSize size: Int) {
-        self.data.append(contentsOf: awakenData)
-        //self?.peopleData.append(contentsOf: peoples)
-        if (self.data.count) >= size { // all data are downloaded
-            self.data.sort(by: { $0.name < $1.name })
-            self.dataListPickerView.reloadAllComponents()
-            self.activityIndicator.stopAnimating()
-            self.activityIndicator.isHidden = true
-            let smallest = self.data.min(by: { $0.measure < $1.measure })
-            let largest = self.data.max(by: { $0.measure < $1.measure })
-            self.smallestLabel.text = smallest?.name
-            self.largestLabel.text = largest?.name
-            self.pickerView(self.dataListPickerView, didSelectRow: 0, inComponent: 0)
-        }
-    }
-    
-    
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return data.count
         
     }
     
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return data[row].name
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        if let entity = entity {
-            switch entity {
-            case .people:
-                self.currentPeople = self.data[row] as? People
-                if let people = self.currentPeople {
-                    let viewModel = PeopleViewModel(people: people)
-                    configure(with: viewModel)
-                }
-            case .vehicles, .starships:
-                self.currentMachine = self.data[row] as? TransportMachine
-                if let machine = self.currentMachine {
-                    let viewModel = TransportMachineViewModel(machine: machine)
-                    configure(with: viewModel)
-                }
-            }
+    func configureConverters() {
+        
+        guard let entity = entity else { return }
+
+        unitConverter.selectedSegmentIndex = 1
+        currencyConverter.selectedSegmentIndex = 1
+        if entity == .people {
+            currencyConverter.isHidden = true
+            currencyConverter.isEnabled = false
+        } else {
+            currencyConverter.isHidden = false
+            currencyConverter.isEnabled = true
         }
     }
     
+    func configureTitles() {
+        guard let entity = entity else { return }
+        switch entity {
+        case .people:
+            titleLabel.text = "Characters"
+        case .vehicles:
+            titleLabel.text = "Vehicles"
+        case .starships:
+            titleLabel.text = "Starships"
+        }
+    }
     
     func configure(with viewModel: PeopleViewModel) {
         self.titleLabel.text = viewModel.name
@@ -167,6 +138,51 @@ class AwakenController: UITableViewController, UIPickerViewDataSource, UIPickerV
     }
     
     
+    
+    func createDataArray(with awakenData: [AwakenData], forSize size: Int) {
+        dataSource.update(with: awakenData)
+        if dataSource.numberOfElements() >= size { // all the data are downloaded
+            self.dataListPickerView.reloadAllComponents()
+            self.activityIndicator.stopAnimating()
+            self.activityIndicator.isHidden = true
+            self.smallestLabel.text = dataSource.smallestElement()?.name
+            self.largestLabel.text = dataSource.greatestElement()?.name
+            self.pickerView(self.dataListPickerView, didSelectRow: 0, inComponent: 0)
+        }
+        
+    }
+
+
+    // MARK: - PickerView Delegate
+
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return dataSource.awakenData(at: row).name
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        
+        guard let entity = entity else { return }
+
+        switch entity {
+        case .people:
+            self.currentPeople = self.dataSource.awakenData(at: row) as? People
+            if let people = self.currentPeople {
+                let viewModel = PeopleViewModel(people: people)
+                configure(with: viewModel)
+            }
+        case .vehicles, .starships:
+            self.currentMachine =  self.dataSource.awakenData(at: row) as? TransportMachine
+            if let machine = self.currentMachine {
+                let viewModel = TransportMachineViewModel(machine: machine)
+                configure(with: viewModel)
+            }
+        }
+    }
+    
+    
+    
+    // MARK: - Configure the converters
+    
     @IBAction func unitChanged(_ sender: Any) {
         metricUnit = !metricUnit
         if let people = currentPeople {
@@ -190,11 +206,9 @@ class AwakenController: UITableViewController, UIPickerViewDataSource, UIPickerV
                 var heightInFeet = 0.0
                 if entity != .people {
                     heightInFeet = sizeInCm*3.28084
-
                 } else {
                     heightInFeet = sizeInCm*0.0328084
                 }
-
                 let formattedHeight = String(format: "%.2f", heightInFeet)
                 self.thirdLabel.text = "\(formattedHeight)ft"
             }
@@ -202,38 +216,38 @@ class AwakenController: UITableViewController, UIPickerViewDataSource, UIPickerV
     }
     
     
-    // rework on optionnals
     @IBAction func currencyConverterTapped(_ sender: UISegmentedControl) {
         
-        var conversionRate = 1.0
-        if let currentMachine = currentMachine {
-            if let costInCredits = Double(currentMachine.costInCredits) {
-                if currencyConverter.selectedSegmentIndex == 0 {
-                    let alertController = UIAlertController(title: "Currency converter to USD", message: "Please enter an exchange rate", preferredStyle: .alert)
-                    alertController.addTextField { textField in
-                        textField.placeholder = "Exchange Rate"
-                    }
-                    let confirmAction = UIAlertAction(title: "OK", style: .default) { [weak alertController] _ in
-                        guard let alertController = alertController, let textField = alertController.textFields?.first else { return }
-                        if let rate = Double(textField.text!) {
-                            conversionRate = rate
-                            let usdValue = costInCredits*conversionRate
-                            self.secondLabel.text = "\(usdValue)$"
-                        }
-                    }
-                    alertController.addAction(confirmAction)
-                    let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-                    alertController.addAction(cancelAction)
-                    present(alertController, animated: true, completion: nil)
-                } else {
-                    self.secondLabel.text = "\(costInCredits) credits"
-                }
-            } else {
-                currencyConverter.selectedSegmentIndex = 1
-            }
+        guard let currentMachine = currentMachine, let costInCredits = Double(currentMachine.costInCredits) else {
+            currencyConverter.selectedSegmentIndex = 1
+            return
         }
         
+        var conversionRate = 1.0
+        if currencyConverter.selectedSegmentIndex == 0 {
+            let alertController = UIAlertController(title: "Currency converter to USD", message: "Please enter an exchange rate", preferredStyle: .alert)
+            alertController.addTextField { textField in
+                textField.placeholder = "Exchange Rate"
+            }
+            let confirmAction = UIAlertAction(title: "OK", style: .default) { [weak alertController] _ in
+                guard let alertController = alertController, let textField = alertController.textFields?.first else { return }
+                if let rate = Double(textField.text!) {
+                    conversionRate = rate
+                    let usdValue = costInCredits*conversionRate
+                    self.secondLabel.text = "\(usdValue)$"
+                }
+            }
+            alertController.addAction(confirmAction)
+            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+            alertController.addAction(cancelAction)
+            present(alertController, animated: true, completion: nil)
+        } else {
+            self.secondLabel.text = "\(costInCredits) credits"
+        }
     }
+    
+    
+    // MARK - AlertView helper methods
     
     // Display an alertView with a given title and a givent message
     func alert(withTitle title: String, andMessage message: String) {
