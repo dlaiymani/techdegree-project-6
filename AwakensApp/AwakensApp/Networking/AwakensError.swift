@@ -14,5 +14,6 @@ enum AwakensError: Error {
     case invalidData
     case jsonConversionFailure
     case jsonParsingFailure(message: String)
-    
+
 }
+

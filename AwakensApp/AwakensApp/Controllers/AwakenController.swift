@@ -65,7 +65,7 @@ class AwakenController: UITableViewController, UIPickerViewDataSource, UIPickerV
         client.searchForData(with : endpoint!, forEntity: entity!) { [weak self] data, nb, error in
             
             if let error = error {
-                print(error)
+                self?.displayAlert(forError: error)
             } else {
                 self?.createDataArray(with: data, forSize: nb!)
             }
@@ -144,8 +144,15 @@ class AwakenController: UITableViewController, UIPickerViewDataSource, UIPickerV
         self.fourthLabel.text = viewModel.eyeColor
         self.fifthLabel.text = viewModel.hairColor
         self.displayMeasure(measure: viewModel.height)
+        self.secondLabel.text = "Loading..."
         client.lookupHome(withId: viewModel.home) { (home, error) in
-            self.secondLabel.text = home
+            
+            if let error = error {
+                self.secondLabel.text = "??"
+                self.displayAlert(forError: error)
+            } else {
+                self.secondLabel.text = home
+            }
         }
     }
     
@@ -226,6 +233,27 @@ class AwakenController: UITableViewController, UIPickerViewDataSource, UIPickerV
             }
         }
         
+    }
+    
+    // Display an alertView with a given title and a givent message
+    func alert(withTitle title: String, andMessage message: String) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let action = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alertController.addAction(action)
+        present(alertController, animated: true, completion: nil)
+    }
+    
+    func displayAlert(forError error: AwakensError) {
+        switch error {
+        case .requestFailed:
+            alert(withTitle: "Network connection error", andMessage: "Please check your network connection")
+        case .invalidData, .jsonConversionFailure:
+            alert(withTitle: "Data error", andMessage: "Data format seems incorrect")
+        case .responseUnsuccessful:
+            alert(withTitle: "Bad server response", andMessage: "The server's response seems incorrect")
+        case .jsonParsingFailure(let message):
+            alert(withTitle: "JSON error", andMessage: message)
+        }
     }
     
 }
