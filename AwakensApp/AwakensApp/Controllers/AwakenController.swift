@@ -58,8 +58,6 @@ class AwakenController: UITableViewController, UIPickerViewDelegate {
         dataListPickerView.dataSource = dataSource
         
         activityIndicator.startAnimating()
-        self.tableView.cellForRow(at: IndexPath(row: 0, section: 2))?.isUserInteractionEnabled = false
-        self.tableView.cellForRow(at: IndexPath(row: 1, section: 2))?.isUserInteractionEnabled = false
         
         client.searchForData(with : endpoint!, forEntity: entity!) { [weak self] data, nb, error in
             
@@ -71,6 +69,7 @@ class AwakenController: UITableViewController, UIPickerViewDelegate {
             
         }
     }
+
     
     // MARK: - Configure the view
     
@@ -155,8 +154,8 @@ class AwakenController: UITableViewController, UIPickerViewDelegate {
         if dataSource.numberOfElements() >= size { // all the data are downloaded
             self.dataListPickerView.reloadAllComponents()
             self.activityIndicator.stopAnimating()
-//            self.tableView.cellForRow(at: IndexPath(row: 0, section: 2))?.isUserInteractionEnabled = true
-//            self.tableView.cellForRow(at: IndexPath(row: 1, section: 2))?.isUserInteractionEnabled = true
+            self.tableView.cellForRow(at: IndexPath(row: 0, section: 2))?.isUserInteractionEnabled = true
+            self.tableView.cellForRow(at: IndexPath(row: 1, section: 2))?.isUserInteractionEnabled = true
             self.activityIndicator.isHidden = true
             self.smallestLabel.text = dataSource.smallestElement()?.name
             self.largestLabel.text = dataSource.greatestElement()?.name
@@ -164,6 +163,14 @@ class AwakenController: UITableViewController, UIPickerViewDelegate {
             
         }
         
+    }
+    
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        if entity! == .people { // Not proud of this
+            return 3
+        } else {
+            return 2
+        }
     }
 
 
