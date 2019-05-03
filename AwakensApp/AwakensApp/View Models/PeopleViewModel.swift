@@ -22,7 +22,6 @@ extension PeopleViewModel {
     init(people: People) {
         self.name = people.name
         self.birthYear = people.birthYear
-       // self.homeUrl
         self.height = people.measure
         if people.hairColor == "n/a" {
             self.hairColor = "Non available"

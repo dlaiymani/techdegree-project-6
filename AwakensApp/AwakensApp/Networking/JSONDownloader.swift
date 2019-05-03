@@ -22,6 +22,8 @@ class JSONDownloader {
     typealias JSON = [String: AnyObject]
     typealias JSONTaskCompletionHandler = (JSON?, AwakensError?) -> Void
     
+    // This method download json data from an URLrequest and return a [String: AnyObject] object
+    // or some AwakenError if an error occurs
     func jsonTask(with request: URLRequest, completionHandler completion: @escaping JSONTaskCompletionHandler) -> URLSessionDataTask {
         let task = session.dataTask(with: request) { data, response, error in
             

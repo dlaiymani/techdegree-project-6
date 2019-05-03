@@ -16,6 +16,8 @@ class MachinesDataSource: NSObject, UITableViewDataSource {
         self.machinesNames = machinesNames
     }
     
+    
+    // MARK: - Data Sources
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -32,6 +34,8 @@ class MachinesDataSource: NSObject, UITableViewDataSource {
         
         return machineCell
     }
+    
+    // MARK: - Helper Methods
     
     func update(with machinesNames: [String]) {
         self.machinesNames.append(contentsOf: machinesNames)

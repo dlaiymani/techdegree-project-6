@@ -125,7 +125,7 @@ class AwakenController: UITableViewController, UIPickerViewDelegate {
         
         
 
-        client.lookupHome(withId: viewModel.home) { (home, error) in
+        client.lookupData(withId: viewModel.home) { (home, error) in
             
             if let error = error {
                 self.secondLabel.text = "??"
@@ -303,7 +303,7 @@ class AwakenController: UITableViewController, UIPickerViewDelegate {
             if numberOfVehicles > 0 {
                 machinesController.peopleName = "\(people.name)'s Vehicules"
                 for i in 0...numberOfVehicles-1 {
-                    client.lookupHome(withId: people.vehicles[i]) { (vehiculeName, error) in
+                    client.lookupData(withId: people.vehicles[i]) { (vehiculeName, error) in
                         machinesController.machinesNames = [vehiculeName!]
                     }
                 }
@@ -315,7 +315,7 @@ class AwakenController: UITableViewController, UIPickerViewDelegate {
                 if numberOfStarships > 0 {
                     machinesController.peopleName = "\(people.name)'s Starships"
                     for i in 0...numberOfStarships-1 {
-                        client.lookupHome(withId: people.starships[i]) { (vehiculeName, error) in
+                        client.lookupData(withId: people.starships[i]) { (vehiculeName, error) in
                             machinesController.machinesNames = [vehiculeName!]
                         }
                     }
