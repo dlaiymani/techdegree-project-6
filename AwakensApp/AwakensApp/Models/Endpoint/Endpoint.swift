@@ -8,6 +8,7 @@
 
 import Foundation
 
+// An http endpoint protocol as view in the iTunes course
 protocol Endpoint {
     var base: String { get }
     var path: String { get }
@@ -42,13 +43,13 @@ enum Awakens {
 }
 
 
+// An Awaken endpoint with the swapi API with two kind of request: search and lookup
 extension Awakens: Endpoint {
     var base: String {
         return "https://swapi.co"
     }
     
     var path: String {
-        
         switch self {
         case .search(let entity, _):
             return "/api/\(entity.rawValue)/".addingpercentEncoding()

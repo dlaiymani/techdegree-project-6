@@ -29,7 +29,6 @@ class AwakenController: UITableViewController, UIPickerViewDelegate {
     
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
-    
     @IBOutlet var descriptionLabels: [UILabel]!
     
     let descriptionLabelsForPeople = ["Born", "Home", "Height", "Eyes", "Hairs"]
@@ -46,7 +45,7 @@ class AwakenController: UITableViewController, UIPickerViewDelegate {
         return AwakenDataSource(data: [], pickerView: self.dataListPickerView)
     }()
     
-    var metricUnit = true
+    var metricUnitSystem = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,14 +58,13 @@ class AwakenController: UITableViewController, UIPickerViewDelegate {
         
         activityIndicator.startAnimating()
         
+        // Download the data for a given entity i.e. people, vehicle or starship
         client.searchForData(with : endpoint!, forEntity: entity!) { [weak self] data, nb, error in
-            
             if let error = error {
                 self?.displayAlert(forError: error)
             } else {
                 self?.createDataArray(with: data, forSize: nb!)
             }
-            
         }
     }
 
@@ -113,9 +111,9 @@ class AwakenController: UITableViewController, UIPickerViewDelegate {
         }
     }
     
+    // Configure the People view
     func configure(with viewModel: PeopleViewModel) {
         
-       
         self.titleLabel.text = viewModel.name
         self.firstLabel.text = viewModel.birthYear
         self.fourthLabel.text = viewModel.eyeColor
@@ -123,10 +121,8 @@ class AwakenController: UITableViewController, UIPickerViewDelegate {
         self.displayMeasure(measure: viewModel.height)
         self.secondLabel.text = "Loading..."
         
-        
-
+        // Lookup for home
         client.lookupData(withId: viewModel.home) { (home, error) in
-            
             if let error = error {
                 self.secondLabel.text = "??"
                 self.displayAlert(forError: error)
@@ -134,9 +130,9 @@ class AwakenController: UITableViewController, UIPickerViewDelegate {
                 self.secondLabel.text = home
             }
         }
-
     }
     
+    // Configure the TransportMachine view
     func configure(with viewModel: TransportMachineViewModel) {
         self.titleLabel.text = viewModel.name
         self.firstLabel.text = viewModel.manufacturer
@@ -147,8 +143,17 @@ class AwakenController: UITableViewController, UIPickerViewDelegate {
         self.currencyConverter.selectedSegmentIndex = 1
     }
     
+    // Display (People view) or hide (Transport Machine view) the vehicle and Starship cells
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        if entity! == .people { // Not proud of this
+            return 3
+        } else {
+            return 2
+        }
+    }
     
-    
+    // This methods populates the datasource. It is called for each page asynchronously
+    // When all the data are donwloaded, the view is updated. In particular smallest and largest are computed and displayed
     func createDataArray(with awakenData: [AwakenData], forSize size: Int) {
         dataSource.update(with: awakenData)
         if dataSource.numberOfElements() >= size { // all the data are downloaded
@@ -160,18 +165,10 @@ class AwakenController: UITableViewController, UIPickerViewDelegate {
             self.smallestLabel.text = dataSource.smallestElement()?.name
             self.largestLabel.text = dataSource.greatestElement()?.name
             self.pickerView(self.dataListPickerView, didSelectRow: 0, inComponent: 0)
-            
         }
-        
     }
     
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        if entity! == .people { // Not proud of this
-            return 3
-        } else {
-            return 2
-        }
-    }
+    
 
 
     // MARK: - PickerView Delegate
@@ -181,7 +178,6 @@ class AwakenController: UITableViewController, UIPickerViewDelegate {
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        
         guard let entity = entity else { return }
 
         switch entity {
@@ -205,7 +201,7 @@ class AwakenController: UITableViewController, UIPickerViewDelegate {
     // MARK: - Configure the converters
     
     @IBAction func unitChanged(_ sender: Any) {
-        metricUnit = !metricUnit
+        metricUnitSystem = !metricUnitSystem
         if let people = currentPeople {
             displayMeasure(measure: people.measure)
         }
@@ -214,10 +210,10 @@ class AwakenController: UITableViewController, UIPickerViewDelegate {
         }
     }
     
+    // Display the measure in the correct unit
     func displayMeasure(measure: String) {
-        
         if let sizeInCm = Double(measure) {
-            if metricUnit {
+            if metricUnitSystem {
                 if entity == .people {
                     self.thirdLabel.text = "\(measure)cm"
                 } else {
@@ -237,15 +233,15 @@ class AwakenController: UITableViewController, UIPickerViewDelegate {
     }
     
     
+    // Handle the currency conversion. It displays an alert view with a textField to type the currency rate
     @IBAction func currencyConverterTapped(_ sender: UISegmentedControl) {
-        
         guard let currentMachine = currentMachine, let costInCredits = Double(currentMachine.costInCredits) else {
             currencyConverter.selectedSegmentIndex = 1
             return
         }
         
         var conversionRate = 1.0
-        if currencyConverter.selectedSegmentIndex == 0 {
+        if currencyConverter.selectedSegmentIndex == 0 { // Convert from credits to USD
             let alertController = UIAlertController(title: "Currency converter to USD", message: "Please enter an exchange rate", preferredStyle: .alert)
             alertController.addTextField { textField in
                 textField.placeholder = "Exchange Rate"
@@ -278,6 +274,7 @@ class AwakenController: UITableViewController, UIPickerViewDelegate {
         present(alertController, animated: true, completion: nil)
     }
     
+    // Handle the API errors
     func displayAlert(forError error: AwakensError) {
         switch error {
         case .requestFailed:
@@ -292,6 +289,7 @@ class AwakenController: UITableViewController, UIPickerViewDelegate {
     }
     
     // MARK: - Navigation
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         guard let people = currentPeople else { return }
@@ -302,11 +300,7 @@ class AwakenController: UITableViewController, UIPickerViewDelegate {
             let numberOfVehicles = people.vehicles.count
             if numberOfVehicles > 0 {
                 machinesController.peopleName = "\(people.name)'s Vehicules"
-                for i in 0...numberOfVehicles-1 {
-                    client.lookupData(withId: people.vehicles[i]) { (vehiculeName, error) in
-                        machinesController.machinesNames = [vehiculeName!]
-                    }
-                }
+                downloadTransportMachinesNames(for: people.vehicles, into: machinesController)
             } else {
                 machinesController.peopleName = "No Vehicules"
             }
@@ -314,11 +308,7 @@ class AwakenController: UITableViewController, UIPickerViewDelegate {
                 let numberOfStarships = people.starships.count
                 if numberOfStarships > 0 {
                     machinesController.peopleName = "\(people.name)'s Starships"
-                    for i in 0...numberOfStarships-1 {
-                        client.lookupData(withId: people.starships[i]) { (vehiculeName, error) in
-                            machinesController.machinesNames = [vehiculeName!]
-                        }
-                    }
+                    downloadTransportMachinesNames(for: people.starships, into: machinesController)
                 } else {
                     machinesController.peopleName = "No Starships"
                 }
@@ -327,4 +317,13 @@ class AwakenController: UITableViewController, UIPickerViewDelegate {
         }
     }
     
+    
+    func downloadTransportMachinesNames(for machineUrl: [String], into machinesController: MachinesController) {
+        for i in 0...machineUrl.count-1 {
+            client.lookupData(withId: machineUrl[i]) { (vehiculeName, error) in
+                machinesController.machinesNames = [vehiculeName!]
+            }
+        }
+        
+    }
 }

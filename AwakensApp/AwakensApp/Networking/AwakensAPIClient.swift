@@ -11,7 +11,9 @@ import Foundation
 class AwakensAPIClient {
     var downloader = JSONDownloader()
     
-    // This methods
+    // This methods requests the data for a given entity. It computes the number of pages required and call the performRequest asynchronoulsy for each page.
+    // Advantage: the requests for the pages are all asynchronous
+    // Drawback: if the API supplier changes the number of elements per page, we must change et 10.0 constant.
     func searchForData(with endpoint: Endpoint, forEntity entity: Entity, completion: @escaping ([AwakenData], Int?, AwakensError?) -> Void) {
         
         getNumberOfElements(with: endpoint) { (nbOfElements, error) in

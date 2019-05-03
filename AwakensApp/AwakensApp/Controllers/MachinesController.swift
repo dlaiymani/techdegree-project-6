@@ -13,6 +13,7 @@ class MachinesController: UITableViewController {
     @IBOutlet weak var titleLabel: UILabel!
     var peopleName: String?
     
+    // We only display the name of the machines
     var machinesNames: [String]? {
         didSet {
             if let machinesNames = machinesNames {
