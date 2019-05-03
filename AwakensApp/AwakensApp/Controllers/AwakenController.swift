@@ -263,7 +263,7 @@ class AwakenController: UITableViewController, UIPickerViewDelegate {
             alertController.addAction(cancelAction)
             present(alertController, animated: true, completion: nil)
         } else {
-            self.secondLabel.text = "\(costInCredits) credits"
+            self.secondLabel.text = "\(costInCredits)"
         }
     }
     
